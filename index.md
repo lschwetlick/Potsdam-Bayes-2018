@@ -4,19 +4,17 @@ The course will find place **19. - 23. February 2018** (9:15 - 15:00) in **room 
 
 Further information about the workshop can be found on the slides of our first [constituting session](https://github.com/lindemann09/Potsdam-Bayes-2018/blob/master/slides/session0-orga.pdf). 
 
+---
 
-## Repository
+## Material
 
-[Slides](https://github.com/lindemann09/Potsdam-Bayes-2018/tree/master/slides)
+[Slides](https://github.com/lindemann09/Potsdam-Bayes-2018/tree/master/slides)  
 
-[Code Miscallenious](https://github.com/lindemann09/Potsdam-Bayes-2018/tree/master/code/misc)
+[Code Miscallenious](https://github.com/lindemann09/Potsdam-Bayes-2018/tree/master/code/misc)   
+[Code Day 1](https://github.com/lindemann09/Potsdam-Bayes-2018/tree/master/code/day1)   
+[Code Day 2](https://github.com/lindemann09/Potsdam-Bayes-2018/tree/master/code/day2)   
+[Code Day 3](https://github.com/lindemann09/Potsdam-Bayes-2018/tree/master/code/day3)   
+[Code Day 4](https://github.com/lindemann09/Potsdam-Bayes-2018/tree/master/code/day4)   
+[Code Day 5](https://github.com/lindemann09/Potsdam-Bayes-2018/tree/master/code/day5)   
 
-[Code Day 1](https://github.com/lindemann09/Potsdam-Bayes-2018/tree/master/code/day1)
-
-[Code Day 2](https://github.com/lindemann09/Potsdam-Bayes-2018/tree/master/code/day2)
-
-[Code Day 3](https://github.com/lindemann09/Potsdam-Bayes-2018/tree/master/code/day3)
-
-[Code Day 4](https://github.com/lindemann09/Potsdam-Bayes-2018/tree/master/code/day4)
-
-[Code Day 5](https://github.com/lindemann09/Potsdam-Bayes-2018/tree/master/code/day5)
+--- 
