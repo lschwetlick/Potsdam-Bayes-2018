@@ -1,4 +1,4 @@
-### Please note: The registration for Bayesian Statistics workshop is closed. ###
+### Please note: The registration for Bayesian Statistics workshop is closed. Further registrations are not possible. ###
 
 
 The workshop will find place between **19. - 23. February 2018** (9:15 - 15:00) in **room 2.14.0.18**. Further information about the workshop can be found on the slides of our first [constituting session](https://github.com/lindemann09/Potsdam-Bayes-2018/blob/master/slides/session0-orga.pdf). 
