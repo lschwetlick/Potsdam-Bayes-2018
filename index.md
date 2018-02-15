@@ -1,7 +1,7 @@
 ### Please note: The workshop is fully booked. Further registrations are not possible. ###
 
 
-The workshop will find place between **19. - 23. February 2018** (9:15 - 15:00) in **room 2.14.0.18**. Further information about the workshop can be found on the slides of our first [constituting session](https://github.com/lindemann09/Potsdam-Bayes-2018/blob/master/slides/session0-orga.pdf). 
+The workshop will find place between **19. - 23. February 2018** (9:15 - 15:00) in **room 2.14.0.18**. 
 
 Contact: [Oliver Lindemann](http://cognitive-psychology.eu/lindemann/)
 
