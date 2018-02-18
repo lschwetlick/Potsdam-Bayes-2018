@@ -3,7 +3,7 @@
 #
 # O. Lindemann
 
-packages = c("rjags", "runjags", "ggplot2", "coda", "BEST" )
+packages = c("rjags", "runjags", "ggplot2", "coda", "dplyr" )
 have = packages %in% rownames(installed.packages())
 if ( any(!have) ) { install.packages( packages[!have] ) }
 
