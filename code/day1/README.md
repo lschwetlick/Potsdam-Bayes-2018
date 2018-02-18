@@ -1,1 +1,0 @@
-# Code Day 1
