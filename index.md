@@ -23,3 +23,5 @@ Contact: [Oliver Lindemann](http://cognitive-psychology.eu/lindemann/)
 
 
 --- 
+# Links
+[Documentation BayesFactor package](http://bayesfactorpcl.r-forge.r-project.org/)
