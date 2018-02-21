@@ -1,0 +1,16 @@
+# two independent coin flips
+
+model
+{
+	# Likelihood
+  for (i in 1:N)
+	{
+		ya[i] ~ dbern( theta_a )
+		yb[i] ~ dbern( theta_b )
+	}
+	
+  theta_a ~ dbeta(a, b)
+  theta_b ~ dbeta(a, b)
+  a <- 1
+  b <- 1
+}

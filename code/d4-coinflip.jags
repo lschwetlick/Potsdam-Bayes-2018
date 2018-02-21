@@ -1,0 +1,11 @@
+model
+{
+    # Likelihood
+    for (i in 1:N)
+    {
+        y[i] ~ dbern( theta )
+    }
+
+    # Prior of theta
+    theta ~ dbeta(1, 1) 
+}

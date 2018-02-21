@@ -1,0 +1,17 @@
+# multiple  coin flips model (nested)
+model
+{
+  # Likelihood
+  for (i in 1:NTotalFlips)
+  {
+     y[i] ~ dbern( theta[ coin[i] ] )
+  }
+
+  # Prior for thetas of each coin
+  for (coin in 1:NCoins) 
+  {
+     theta[coin] ~ dbeta(a, b)
+  }
+  a <- 1
+  b <- 1
+}
