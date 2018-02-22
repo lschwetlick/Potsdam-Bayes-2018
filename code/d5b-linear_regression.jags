@@ -1,0 +1,19 @@
+# simple linear regression in jags
+model
+{
+    # likelihood
+    for(i in 1:N)
+    {
+        mu[i] <- alpha + beta * x[i]
+        y[i] ~ dnorm(mu[i], lambda)
+    }
+
+    lambda ~ dgamma(0.01, 0.01)
+
+    # priors
+    alpha ~ dnorm(0, 0.001)
+    beta ~ dnorm(0, 0.001)
+
+    sigma <- 1/sqrt(lambda)
+}
+
