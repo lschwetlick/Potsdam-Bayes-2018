@@ -1,0 +1,30 @@
+# simple mixed model without random slopes
+# data need to be standardized
+
+model{
+	# likelihood
+    for(i in 1:N){
+        mu[i] <-  c +             # could be omitted, because zero for standardized data
+                  u[subj[i]] +    # random effect
+                  b_a * a[i] +    # fixed a
+                  b_b * b[i];     # fixed b
+        
+        rt[i] ~ dnorm(mu[i], lambda_e);      
+    }
+
+    # priors fixed 
+    c ~ dnorm(0, .001);
+    b_a ~ dt(0,1,1);  # cauchy
+    b_b ~ dt(0,1,1);  # cauchy
+    
+    # priors random  
+    for (j in 1:N_sub) {
+      u[j] ~ dnorm(0, lambda_u);
+    }
+    
+    # priors sigma
+    lambda_e ~ dgamma(0.001,0.001)
+    lambda_u ~ dgamma(0.001,0.001)
+    sigma_e <- 1/sqrt(lambda_e)
+    sigma_u <- 1/sqrt(lambda_u)
+}
