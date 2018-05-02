@@ -1,0 +1,75 @@
+---
+title: 'Assignment 1: Probabilities'
+author: "Schwetlick"
+date: '2018-05-02'
+output: 
+    html_document:
+        toc: yes
+        toc_depth: 3
+        number_sections: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Task
+32 of the 120 first year students in psychology were male. Assuming that the gender is equally distributed in the population, what is the probability that psychology is subject with a particular gender bias θ = [0, 0.25, 0.5, 0.75, 1]. Use an uninformative prior.
+
+
+```{r code}
+# Data
+z = 32 
+N = 100  
+
+# Prior  
+Theta = c(0, 0.25, 0.5, 0.75, 1)
+# uninformed prior
+prior = rep(1/length(Theta), length(Theta))
+# Likelihood  
+likelihood = Theta^z * (1-Theta)^(N-z) # Bernoulli likelihood  
+# Posterior  
+evidence = sum( likelihood * prior )  
+posterior = likelihood * prior / evidence # Bayes' rule!  
+
+### Plotting
+
+par(mfrow=c(3,1)) 
+
+# plot prior  
+plot(Theta , prior,   
+     type="h", lwd=1, main="Prior",  
+     xlim=c(0,1) , xlab=bquote(theta),  
+     #ylim=c(0,1.1*max(posterior)),   
+     ylab=bquote(p(theta)),  
+     col="red")  
+
+# plot Likelihood  
+plot( Theta , likelihood ,   
+      type="h" , lwd=1 , main="Likelihood",  
+      xlim=c(0,1) , xlab=bquote(theta),  
+      #ylim=c(0,1.1*max(likelihood)),   
+      ylab=bquote(paste("p(D|",theta,")")),  
+      col="red" )  
+
+
+# plot posterior  
+plot( Theta , posterior,   
+      type="h" , lwd=1 , main="Posterior" ,  
+      xlim=c(0,1) , xlab=bquote(theta),  
+      #ylim=c(0,1.1*max(posterior)),   
+      ylab=bquote(paste("p(",theta,"|D)")),  
+      col="red") 
+```
+
+The likelihood for the given values of theta are 
+```{r answer}
+names(posterior)<-Theta
+print(posterior)
+```
+
+
+# Program version
+```{r script_13}
+sessionInfo()
+````
