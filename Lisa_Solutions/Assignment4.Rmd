@@ -1,0 +1,36 @@
+---
+title: 'Assignment 4: One-sample t-test in JAGS'
+author: "Schwetlick"
+date: '2018-05-02'
+output: 
+    html_document:
+        toc: yes
+        toc_depth: 3
+        number_sections: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(BayesFactor)
+```
+
+Data: weight.csv
+# A clinic provides a program to help their clients lose weight and asks you to investigate the effectiveness of the program. You have a sample of 15 people, weighing each person before the program begins and 3 months later.
+Determine whether the program is effective. To do so, implement the t-test in JAGS and use a Cauchy distribution as prior.
+
+```{r data}
+weight<-read.csv("../assignment/weight.csv")
+head(weight)
+````
+
+## a. Plot the posterior distribution of the δ parameter.
+
+## b. Estimate the bayes factor between H0 : δ = 0 and H1 : δ ∼ Cauchy(0, 1) by using the Savage-Dickey method (see slides).
+
+## c. Use both a normal and an “ultrawide” rscale parameter for the Cauchy prior distribution.
+
+# Program version
+```{r script_13}
+sessionInfo()
+````

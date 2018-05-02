@@ -1,5 +1,5 @@
 ---
-title: 'Assignment 2: Bayesian ANOVA'
+title: 'Assignment 3: Bayesian ANOVA'
 author: "Schwetlick"
 date: '2018-05-02'
 output: 
