@@ -1,0 +1,68 @@
+---
+title: 'Assignment 2: Bayesian ANOVA'
+author: "Schwetlick"
+date: '2018-05-02'
+output: 
+    html_document:
+        toc: yes
+        toc_depth: 3
+        number_sections: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(BayesFactor)
+```
+
+# Task
+Use the BayesFator package to analyse the data with a Bayesian ANOVA with the repeated measures.
+
+```{r data}
+load("../assignment/LooksOrPersonality.Rda")
+head(LooksOrPersonality)
+```
+## a. Perform a Bayesian two-way ANOVA with the repeated measures Looks and Personality and calculate the bayes factors for all three effects (i.e., BFs when omitting from the full model).
+
+```{r a}
+bf = anovaBF(preference ~ looks*personality+subject_id, data=LooksOrPersonality, whichRandom="subject_id")
+bf
+# plot(bf)
+# bf[4] is the full model, so we compare reduced models to it
+bf/bf[4]
+plot(bf/bf[4])
+```
+
+The full model is preferred over the reduced models. 
+
+## b. Make the same analysis with an “ultrawide” Cauchy distribution as prior.
+```{r b}
+bf_wide = anovaBF(preference ~ looks*personality+subject_id, data=LooksOrPersonality, whichRandom="subject_id", rscaleFixed = "ultrawide")
+bf_wide
+# bf[4] is the full model, so we compare reduced models to it
+bf_wide/bf_wide[4]
+plot(bf_wide/bf_wide[4])
+```
+
+Still, the full model is preferred over the reduced models. 
+
+
+## c. Please include also the factor Gender and test if there is evidence for a three-way
+interaction Looks × Personality × Gender.
+```{r c}
+bf_g = anovaBF(preference ~ looks*personality*gender+subject_id, data=LooksOrPersonality, whichRandom="subject_id")
+bf_g
+# bf[18] is the full model, so we compare reduced models to it
+bf_g/bf_g[18]
+plot(bf_g/bf_g[18])
+
+# check specifically for interaction
+bf_g[17]/bf_g[18]
+```
+
+There is evidence for a three way interaction.
+
+# Program version
+```{r script_13}
+sessionInfo()
+````
