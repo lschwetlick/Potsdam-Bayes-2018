@@ -1,0 +1,57 @@
+---
+title: 'Assignment 2: Bayesian t-test'
+author: "Schwetlick"
+date: '2018-05-02'
+output: 
+    html_document:
+        toc: yes
+        toc_depth: 3
+        number_sections: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(BayesFactor)
+```
+
+# Task
+Data: exam_anxiety.csv
+This data set comprises the exam anxiety scores of 103 medicine and sport science students. Higher scores indicate more anxiety.
+Examine whether the two groups of students differ in terms of their exam anxiety.
+## a. Calculate a frequentist and Bayesian t-test using the BayesFactor-Package in R.
+
+
+```{r data}
+exam_anx <- read.csv("../assignment/exam_anxiety.csv")
+head(exam_anx)
+
+# paired t-test, 
+plot(Anxiety ~ Subject, data = exam_anx)
+g1 = filter(exam_anx, Subject=="medicine")
+g2 = filter(exam_anx, Subject=="sport")
+t.test(g1$Anxiety[1:51]- g2$Anxiety[1:51])
+
+# bayesian t-test
+bf = ttestBF(g1$Anxiety[1:51]- g2$Anxiety[1:51])
+bf
+samples = posterior(bf, iterations = 2000)
+plot(samples[,1:2])
+```
+
+## b. Which hypothesis (null vs. alternative) receives more empirical support? What does the BF tell you, that is, how do you interpret the BF value? (For your short answers just add comment lines in the R code.)
+
+Null-H: The groups of students do not differ in their exam anxiety scores
+
+Alt-H: The groups of students do differ in their exam anxiety scores
+
+The empirical support is toward the null hypothesis. The Bayes Factor means that the data are 0.15 times as probable under the alternative as under the null. As the BF is below 1, this means they are more probable under the null hypothesis. 
+Using Jeffreys' Table that qualifies as moderate evidence for the null-H.
+
+
+
+
+# Program version
+```{r script_13}
+sessionInfo()
+````
