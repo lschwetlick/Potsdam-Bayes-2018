@@ -1,16 +1,22 @@
-### Please note: The workshop is fully booked. Further registrations are not possible. ###
+<!-- ### Please note: The workshop is fully booked. Further registrations are not possible. ###
+-->
 
-
-The workshop will find place between **19. - 23. February 2018** (9:15 - 15:00) in **room 2.14.0.18**. 
+The workshop found place between **19. - 23. February 2018** (9:15 - 15:00) in **room 2.14.0.18**. 
 
 Contact: [Oliver Lindemann](http://cognitive-psychology.eu/lindemann/)
 
 ---
 
+## Assignment
+
+[Assignment](https://github.com/lindemann09/Potsdam-Bayes-2018/tree/master/assignment )   
+
 ## Material
 
+
 [Slides](https://github.com/lindemann09/Potsdam-Bayes-2018/tree/master/slides)  
-[Code Repository](https://github.com/lindemann09/Potsdam-Bayes-2018/tree/master/code)   
+[Code Repository](https://github.com/lindemann09/Potsdam-Bayes-2018/tree/master/code) 
+
 
 ## Software
 
