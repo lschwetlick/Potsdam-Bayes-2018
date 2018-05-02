@@ -8,8 +8,8 @@ Contact: [Oliver Lindemann](http://cognitive-psychology.eu/lindemann/)
 ---
 
 ## Assignment
-
-[Assignment](https://github.com/lindemann09/Potsdam-Bayes-2018/tree/master/assignment )   
+[Assignment](https://rawgit.com/lindemann09/Potsdam-Bayes-2018/master/assignment/assignment.pdf )   
+[Data](https://github.com/lindemann09/Potsdam-Bayes-2018/tree/master/assignment )   
 
 ## Material
 
