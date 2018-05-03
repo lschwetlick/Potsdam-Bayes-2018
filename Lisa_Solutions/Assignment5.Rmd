@@ -1,0 +1,97 @@
+---
+title: 'Assignment 5: Modelling Linear Regression'
+author: "Schwetlick"
+date: '2018-05-02'
+output: 
+    html_document:
+        toc: yes
+        toc_depth: 3
+        number_sections: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.width=12, fig.height=8)
+library(tidyverse)
+library(BayesFactor)
+# setwd('/Users/lisa/Documents/BayesCourse/Potsdam-Bayes-2018/Lisa_Solutions')
+library('rjags')
+library('coda')
+library('polspline')
+source("kruschke-utilities.R")
+```
+
+Data: expenses.csv
+A researcher is interested in the factors influencing the leisure expenses of 16- and 17-year olds. She collected data from 202 teenagers in order to predict leisure expenses in november (expenses_nov) from leisure expenses in July (expenses_jul), income from the students’ side occupation in november (salary_nov), and time spent on studying for high-school (studytime). The following figure depicts a possible regression model with one intercept (β0 or α) and three beta weights (β1, β2, β3) for the three dependent variables.
+
+The priors of these parameters are normally distributed with Mi = 0 and large standard deviation (e.g. σ = 100). The measurements error of the dependent variable is normally distributed with a standard deviation σ (that is, the inverse of the precision parameter λ). The prior for σ is uniform (you might use here beta(1,1)).
+
+Task: Please implement this regression model in JAGS and apply the data set above. It might be useful to take the JAGS model for a simple linear regression with a gamma distributed prior for the precision λ from the workshop (see github) and modify it accordingly. Please standardized the variables (scale command in R) before entering the data in the regression model.
+
+## First, load and scale data. Also remove rows that include NA values
+```{r data}
+expe<-read.csv("../assignment/expenses.csv")
+head(expe)
+
+expe<- na.omit(expe)
+expe<- as.data.frame(scale(expe[2:5]))
+head(expe)
+```
+
+## Model
+```{r model}
+# prepare data and init list 
+jags.data = list('N' = nrow(expe), 
+                 'y' = expe$expenses_nov,
+                 'x1' = expe$expenses_jul,
+                 'x2' = expe$salary_nov,
+                 'x3' = expe$studytime)
+
+# initis random intits
+random.init = function() {
+  list(alpha = runif(1, -100, 100),
+       beta1 = runif(1, -100, 100),
+       beta2 = runif(1, -100, 100),
+       beta3 = runif(1, -100, 100),
+       lambda = rgamma(1, 0.01, 0.01))
+}
+
+# set up model
+jags <- jags.model(file = 'linregLisa.jags',
+                   data = jags.data,
+                   inits = random.init, # or fix.inits
+                   n.chains = 3,
+                   n.adapt=500)
+
+# burnin
+update(jags, n.iter= 1000)
+
+# sample theta values
+mcmc.samples <- coda.samples(model = jags, 
+                             variable.names = c( "alpha", "beta1", "beta2", "beta3", "sigma"),
+                             n.iter = 30000, thining=20)
+
+### parameter evaluation ###
+# HDI (using coda package)
+HPDinterval(mcmc.samples)
+
+mcmc.mat = as.matrix(mcmc.samples, chain=TRUE)
+summary(mcmc.mat)
+
+par(mfrow=c(3,2)) 
+plotPost(mcmc.mat[,"beta1"])#,75, main ="beta1")
+
+plotPost(mcmc.mat[,"beta2"])#,75, main ="beta2")
+
+plotPost(mcmc.mat[,"beta3"])#,75, main ="beta3")
+
+plotPost(mcmc.mat[,"alpha"])#,75, main ="alpha")
+
+plotPost(mcmc.mat[,"sigma"])#,75, main ="sigma")
+```
+
+
+# Program version
+```{r script_13}
+sessionInfo()
+````

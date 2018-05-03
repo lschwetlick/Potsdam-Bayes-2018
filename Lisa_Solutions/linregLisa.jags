@@ -1,0 +1,21 @@
+# simple linear regression in jags
+model
+{
+    # likelihood
+    for(i in 1:N)
+    {
+        mu[i] <- alpha + (beta1 * x1[i]) + (beta2 * x2[i]) + (beta3 * x3[i])
+        y[i] ~ dnorm(mu[i], lambda)
+    }
+
+    lambda ~ dbeta(1, 1)#values??
+
+    # priors
+    alpha ~ dnorm(0, 100)
+    beta1 ~ dnorm(0, 100)
+    beta2 ~ dnorm(0, 100)
+    beta3 ~ dnorm(0, 100)
+
+    sigma <- 1/sqrt(lambda)
+}
+
