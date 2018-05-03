@@ -11,6 +11,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.width=12, fig.height=8)
 library(tidyverse)
 library(BayesFactor)
 setwd('/Users/lisa/Documents/BayesCourse/Potsdam-Bayes-2018/Lisa_Solutions')
@@ -21,7 +22,8 @@ source("kruschke-utilities.R")
 ```
 
 Data: weight.csv
-# A clinic provides a program to help their clients lose weight and asks you to investigate the effectiveness of the program. You have a sample of 15 people, weighing each person before the program begins and 3 months later.
+
+A clinic provides a program to help their clients lose weight and asks you to investigate the effectiveness of the program. You have a sample of 15 people, weighing each person before the program begins and 3 months later.
 Determine whether the program is effective. To do so, implement the t-test in JAGS and use a Cauchy distribution as prior.
 
 ```{r data}
@@ -70,7 +72,9 @@ BF10
 ```
 
 ## c. Use both a normal and an “ultrawide” rscale parameter for the Cauchy prior distribution.
-```{r priors}
+
+Normal
+```{r priors1}
 medium<- sqrt(2)/2
 wide<- 1
 ultrawide<- sqrt(2) 
@@ -91,7 +95,10 @@ mcmc.samples_m <- coda.samples(model = jags,
 mcmc.mat_m = as.matrix(mcmc.samples_m, chain=TRUE)
 delta_samples_m= mcmc.mat_m[,"delta"]
 plotPost(delta_samples_m)
+```
 
+Ultrawide
+```{r priors}
 # Ultrawide Prior
 jags.data = list('x' = diffs,
                  'N' = length(diffs),

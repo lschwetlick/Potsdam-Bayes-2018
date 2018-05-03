@@ -7,10 +7,13 @@ output:
         toc: yes
         toc_depth: 3
         number_sections: no
+fig_width: 12 
+fig_height: 8 
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.width=12, fig.height=8)
 library(tidyverse)
 library(BayesFactor)
 ```
@@ -49,7 +52,7 @@ Still, the full model is preferred over the reduced models.
 
 ## c. Please include also the factor Gender and test if there is evidence for a three-way
 interaction Looks × Personality × Gender.
-```{r c}
+```{r fig.height = 16, fig.width = 48}
 bf_g = anovaBF(preference ~ looks*personality*gender+subject_id, data=LooksOrPersonality, whichRandom="subject_id")
 bf_g
 # bf[18] is the full model, so we compare reduced models to it
