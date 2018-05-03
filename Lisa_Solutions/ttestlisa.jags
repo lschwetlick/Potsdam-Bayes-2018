@@ -1,0 +1,17 @@
+model{
+  # Data Come From A Gaussian
+  for (i in 1:N){
+    x[i] ~ dnorm(mu, lambda)
+  }
+  
+  mu <- delta*sigma
+  lambda <- 1/pow(sigma, 2)
+  
+  # PRIOR: delta & sigma From (Half) Cauchy Distributions
+  sigma <- abs(sigmatmp)
+  precision <- 1/pow(rscale, 2)
+  
+  delta ~ dt(0,precision, 1)
+  sigmatmp ~ dt(0,precision, 1)
+}
+                   

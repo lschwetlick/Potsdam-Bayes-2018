@@ -13,6 +13,11 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(BayesFactor)
+setwd('/Users/lisa/Documents/BayesCourse/Potsdam-Bayes-2018/Lisa_Solutions')
+library('rjags')
+library('coda')
+library('polspline')
+source("kruschke-utilities.R")
 ```
 
 Data: weight.csv
@@ -22,13 +27,90 @@ Determine whether the program is effective. To do so, implement the t-test in JA
 ```{r data}
 weight<-read.csv("../assignment/weight.csv")
 head(weight)
-````
+diffs<-weight$Before-weight$After
+plot(diffs)
+
+jags.data = list('x' = diffs,
+                 'N' = length(diffs),
+                 'rscale'=1) # width of the prior
+# here we just say where to start sampling. Make it random
+random.init = function() {
+  list(delta = rnorm(1,0,5), 
+       sigmatmp = rnorm(1,0,5)
+       )
+}
+
+# set up model
+jags <- jags.model(file = 'ttestlisa.jags',
+                   data = jags.data,
+                   inits = random.init, 
+                   n.chains = 5)
+# burnin
+update(jags, n.iter= 10000)
+mcmc.samples <- coda.samples(model = jags, 
+                             variable.names = c( "delta", "mu", "sigma"),
+                             n.iter = 100000, thining=5)
+```
 
 ## a. Plot the posterior distribution of the δ parameter.
+```{r delta}
+mcmc.mat = as.matrix(mcmc.samples, chain=TRUE)
+delta_samples= mcmc.mat[,"delta"]
+#HPDinterval(mcmc.samples)
+plotPost(delta_samples)
+```
 
 ## b. Estimate the bayes factor between H0 : δ = 0 and H1 : δ ∼ Cauchy(0, 1) by using the Savage-Dickey method (see slides).
+```{r savage}
+fit.posterior <- logspline(delta_samples)
+posterior <- dlogspline(0, fit.posterior) # this gives the pdf at point delta = 0
+prior     <- dcauchy(0)                   # height of order--restricted prior at delta = 0
+BF10      <- prior/posterior
+BF10
+```
 
 ## c. Use both a normal and an “ultrawide” rscale parameter for the Cauchy prior distribution.
+```{r priors}
+medium<- sqrt(2)/2
+wide<- 1
+ultrawide<- sqrt(2) 
+
+# medium Prior
+jags.data = list('x' = diffs,
+                 'N' = length(diffs),
+                 'rscale' = medium )
+jags <- jags.model(file = 'ttestlisa.jags',
+                   data = jags.data,
+                   inits = random.init, 
+                   n.chains = 5)
+update(jags, n.iter= 10000)
+mcmc.samples_m <- coda.samples(model = jags, 
+                             variable.names = c( "delta", "mu", "sigma"),
+                             n.iter = 100000, thining=5)
+
+mcmc.mat_m = as.matrix(mcmc.samples_m, chain=TRUE)
+delta_samples_m= mcmc.mat_m[,"delta"]
+plotPost(delta_samples_m)
+
+# Ultrawide Prior
+jags.data = list('x' = diffs,
+                 'N' = length(diffs),
+                 'rscale' = ultrawide )
+jags <- jags.model(file = 'ttestlisa.jags',
+                   data = jags.data,
+                   inits = random.init, 
+                   n.chains = 5)
+update(jags, n.iter= 10000)
+mcmc.samples_xl <- coda.samples(model = jags, 
+                             variable.names = c( "delta", "mu", "sigma"),
+                             n.iter = 100000, thining=5)
+
+mcmc.mat_xl = as.matrix(mcmc.samples_xl, chain=TRUE)
+delta_samples_xl= mcmc.mat_xl[,"delta"]
+plotPost(delta_samples_xl)
+
+```
+
 
 # Program version
 ```{r script_13}
